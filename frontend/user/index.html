@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/favicon.svg" sizes="any" type="image/svg+xml" >
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <title>Url Shortener</title>
+    <style>
+        html, body {
+            margin: 0;
+            margin-top: -100px;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins';
+            background-color: #DFD3C3;
+        }
+        input {
+            height: 40px;
+            width: 500px;
+            margin: 15px;
+            border-radius: 6px;
+            border-width: 0;
+            font-size: 20px;
+            padding: 3px;
+        }
+        input:focus {
+            outline-width: 0;
+            box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0,  #b15e5b 0 0 0 4px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 700px) { 
+            input {
+                width:max-content
+            }
+        }
+
+        @media (max-width: 700px) {
+            h1 {
+                font-size: 2rem !important;
+            }
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-9 {
+            appearance: button;
+            backface-visibility: hidden;
+            background-color: #8D493A;
+            border-radius: 6px;
+            border-width: 0;
+            /* box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0; */
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            font-size: 100%;
+            height: 44px;
+            line-height: 1.15;
+            
+            outline: none;
+            overflow: hidden;
+            padding: 0 25px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transform: translateZ(0);
+            transition: all .2s,box-shadow .08s ease-in;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: auto;
+        }
+
+        .button-9:disabled {
+            cursor: default;
+        }
+
+        .button-9:focus {
+            box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0,  #b15e5b 0 0 0 4px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #8D493A;
+
+        }
+    </style>
+
+    <!-- toast related styles -->
+    <style>
+        .toast {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            border-radius: 12px;
+            background: #fff;
+            padding: 20px 35px 20px 25px;
+            box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .toast.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .toast .toast-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .toast-content .message-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 35px;
+            min-width: 35px;
+            background-color: #8D493A;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 50%;
+        }
+
+        .toast-content .message {
+            display: flex;
+            flex-direction: column;
+            margin: 0 20px;
+        }
+
+        .message .text {
+            font-size: 16px;
+            font-weight: 400;
+            color: #666666;
+        }
+
+        .message .text.text-1 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .toast .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            padding: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .toast .close:hover {
+            opacity: 1;
+        }
+
+        .toast .progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+        }
+
+        .toast .progress:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #8D493A;
+        }
+
+        .progress.active:before {
+            animation: progress 5s linear forwards;
+        }
+
+        @keyframes progress {
+            100% {
+                right: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <b><h1>🔗 URL - Shortener</h1></b>
+        <div class="form-container">
+            <form action="" >
+                <input type="email" placeholder="">
+            </form>
+            <button type="button" class="button-9"><b>Get link !!</b></button>
+        </div>
+    </div>
+
+    <div class="toast">
+        <div class="toast-content">
+            <div class="message-icon">
+                🥳
+            </div>
+            <div class="message">
+                <span class="text text-1">Success</span>
+                <span class="text text-2">Your changes have been saved</span>
+            </div>
+        </div>
+        <div class="close"><span style="font-size: 0.7rem;">✖</span></div>
+        <div class="progress"></div>
+    </div>
+
+    <script>
+        const button = document.querySelector("button"),
+        toast = document.querySelector(".toast"),
+        closeIcon = document.querySelector(".close"),
+        progress = document.querySelector(".progress");
+
+        let timer1, timer2;
+
+        button.addEventListener("click", () => {
+            toast.classList.add("active");
+            progress.classList.add("active");
+
+            timer1 = setTimeout(() => {
+                toast.classList.remove("active");
+            }, 5000); //1s = 1000 milliseconds
+
+            timer2 = setTimeout(() => {
+                progress.classList.remove("active");
+            }, 5300);
+        });
+
+        closeIcon.addEventListener("click", () => {
+            toast.classList.remove("active");
+
+            setTimeout(() => {
+                progress.classList.remove("active");
+            }, 300);
+
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        });
+    </script>
+</body>
+</html>
